@@ -15,7 +15,7 @@ on:
 
 env:
   environment: ${{ github.ref_name != 'production' && 'development' || 'production' }}
-  is_deployable: ${{ github.event_name == 'push' && contains(['development', 'production'], github.ref_name) }}
+  is_deployable: ${{ github.event_name == 'push' && contains(fromJson('["development", "production"]'), github.ref_name) }}
 
 jobs:
   build:
