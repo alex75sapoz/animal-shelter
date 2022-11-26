@@ -29,7 +29,8 @@ jobs:
         if: github.event_name == 'push'
         uses: Azure/static-web-apps-deploy@v1
         with:
-          app_location: '/.next'
+          app_location: '.next'
+          output_location: ''
           action: 'upload'
           skip_app_build: true
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_API_TOKEN }}
