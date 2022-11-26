@@ -39,7 +39,7 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           app_location: '/'
-          output_location: './'
+          output_location: '.next/server/app'
           skip_app_build: true
           action: 'upload'
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_API_TOKEN }}
