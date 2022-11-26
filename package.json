@@ -20,6 +20,6 @@
     "typescript": "4.9.3"
   },
   "engines": {
-    "node": ">=19"
+    "node": ">=18"
   }
 }
