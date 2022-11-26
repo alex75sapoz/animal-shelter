@@ -14,7 +14,7 @@ on:
       - work/*
 
 env:
-  environment: ${{ github.ref_name != 'production' && 'development' || 'production' }}
+  environment: ${{ (github.ref_name != 'production' && 'development') || 'production' }}
   is_deployable: ${{ github.event_name == 'push' && contains(fromJson('["development", "production"]'), github.ref_name) }}
 
 jobs:
