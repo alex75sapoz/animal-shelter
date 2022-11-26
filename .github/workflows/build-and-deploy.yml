@@ -39,7 +39,7 @@ jobs:
           name: built_workspace
           path: ${{ github.workspace }}
   deploy_development:
-    if: ${{ env.ENVIORNMENT == 'development' && env.IS_DEPLOYABLE }}
+    if: ${{ env.ENVIORNMENT == 'development' && env.IS_DEPLOYABLE == true }}
     name: Deploy Development
     environment: development
     needs: build
@@ -58,7 +58,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
   deploy_production:
-    if: ${{ env.ENVIORNMENT == 'production' && env.IS_DEPLOYABLE }}
+    if: ${{ env.ENVIORNMENT == 'production' && env.IS_DEPLOYABLE == true }}
     name: Deploy Production
     environment: production
     needs: build
