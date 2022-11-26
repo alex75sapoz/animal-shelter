@@ -14,8 +14,8 @@ on:
       - work/*
 
 env:
-  environment: ${{ github.ref_name }} != 'production' && 'development' || 'production'
-  is_deployable: ${{ github.event_name }} == 'push' && contains(['development', 'production'], ${{ github.ref_name }})
+  environment: ${{ github.ref_name != 'production' && 'development' || 'production' }}
+  is_deployable: ${{ github.event_name == 'push' && contains(['development', 'production'], github.ref_name) }}
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
           name: built_workspace
           path: ${{ github.workspace }}
   deploy_development:
-    if: ${{ env.environment }} == 'development' && ${{ env.is_deployable }}
+    if: ${{ env.environment == 'development' && env.is_deployable }}
     name: Deploy Development
     environment: development
     needs: build
@@ -58,7 +58,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
   deploy_production:
-    if: ${{ env.environment }} == 'production' && ${{ env.is_deployable }}
+    if: ${{ env.environment == 'production' && env.is_deployable }}
     name: Deploy Production
     environment: production
     needs: build
