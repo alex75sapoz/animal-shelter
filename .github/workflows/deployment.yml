@@ -32,5 +32,5 @@ jobs:
           app_location: '/.next'
           action: 'upload'
           skip_app_build: true
-          azure_static_web_apps_api_token: secrets.AZURE_STATIC_WEB_APP_API_TOKEN
-          repo_token: secrets.GITHUB_TOKEN
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
