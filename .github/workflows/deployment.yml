@@ -33,5 +33,6 @@ jobs:
           output_location: ''
           action: 'upload'
           skip_app_build: true
+          skip_api_build: true
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
