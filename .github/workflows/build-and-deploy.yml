@@ -14,17 +14,22 @@ on:
       - work/*
 
 env:
-  is_deployable: github.event_name == 'push' && contains(['development', 'production'], ${{ github.ref_name }})
+  is_deployable: ${{ github.event_name }} == 'push' && contains(['development', 'production'], ${{ github.ref_name }})
+  environment: ${{ github.ref_name }} != 'production' && 'development' || 'production'
 
 jobs:
   build:
     name: Build
+    environment:
+      name: ${{ env.environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup
         uses: actions/setup-node@v3
+        with:
+          node-version-file: 'package.json'
       - name: Install
         run: npm ci
       - name: Build
