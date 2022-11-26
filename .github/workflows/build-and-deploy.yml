@@ -13,10 +13,6 @@ on:
       - production
       - work/*
 
-env:
-  ENVIORNMENT: ${{ github.ref_name == 'production' && 'production' || 'development' }}
-  IS_DEPLOYABLE: ${{ github.event_name == 'push' && contains(fromJson('["development", "production"]'), github.ref_name) }}
-
 jobs:
   build:
     name: Build
@@ -33,13 +29,13 @@ jobs:
       - name: Build
         run: npm run build
       - name: Upload
-        if: ${{ env.IS_DEPLOYABLE }}
+        if: ${{ contains(fromJson('["development", "production"]'), github.ref_name) }}
         uses: actions/upload-artifact@v3
         with:
           name: built_workspace
           path: ${{ github.workspace }}
   deploy_development:
-    if: env.ENVIORNMENT == 'development' && env.IS_DEPLOYABLE
+    if: ${{ github.ref_name == 'development' }}
     name: Deploy Development
     environment: development
     needs: build
@@ -58,7 +54,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
   deploy_production:
-    if: env.ENVIORNMENT == 'production' && env.IS_DEPLOYABLE
+    if: ${{ github.ref_name == 'production' }}
     name: Deploy Production
     environment: production
     needs: build
