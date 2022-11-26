@@ -13,15 +13,9 @@ on:
       - production
       - work/*
 
-env:
-  ENVIORNMENT: ${{ github.ref_name == 'production' && 'production' || 'development' }}
-  IS_DEPLOYABLE: ${{ github.event_name == 'push' && contains(fromJson('["development", "production"]'), github.ref_name) }}
-
 jobs:
   build:
     name: Build
-    environment:
-      name: ${{ env.ENVIORNMENT }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,8 +28,32 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+  deploy_development:
+    if: ${{ github.ref_name == 'development' }}
+    name: Deploy Development
+    environment: development
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Deploy
-        if: ${{ env.IS_DEPLOYABLE }}
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          app_location: '/'
+          action: 'upload'
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APP_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+  deploy_production:
+    if: ${{ github.ref_name == 'production' }}
+    name: Deploy Production
+    environment: production
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           app_location: '/'
