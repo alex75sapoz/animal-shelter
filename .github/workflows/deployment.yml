@@ -12,6 +12,7 @@ on:
 jobs:
   build:
     name: Build and Deploy
+    environment: ${{ github.event.ref == 'refs/heads/production' && production || development }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,7 +26,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Deploy
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.
         uses: Azure/static-web-apps-deploy@v1
         with:
           app_location: '/.next'
