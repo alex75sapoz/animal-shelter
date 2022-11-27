@@ -20,11 +20,11 @@ export default function RootLayout({ children }: {
       <div className='max-w-7xl w-full justify-between self-center m-auto px-4 py-2'>
         <nav className='flex items-center gap-10'>
           <Link href='/' className='block text-center font-semibold'>Rescate Animal <br /> Atenas</Link>
-          <Link href='/animals' className='block text-center text-sm'>Animals</Link>
-          <Link href='/volunteer' className='block text-center text-sm'>Volunteer</Link>
-          <Link href='/events' className='block text-center text-sm'>Events</Link>
-          <Link href='/blog' className='block text-center text-sm'>Blog</Link>
-          <Link href='/about-us' className='block text-center text-sm'>About Us</Link>
+          <Link href='animals' className='block text-center text-sm'>Animals</Link>
+          <Link href='volunteer' className='block text-center text-sm'>Volunteer</Link>
+          <Link href='events' className='block text-center text-sm'>Events</Link>
+          <Link href='blog' className='block text-center text-sm'>Blog</Link>
+          <Link href='about-us' className='block text-center text-sm'>About Us</Link>
           <div className='flex ml-auto gap-4'>
             <button className='bg-teal-600 hover:bg-teal-400 text-white text-sm py-1 px-4 border-none rounded-md'>Donation</button>
             <button className='bg-gray-600 hover:bg-black text-white text-sm py-1 px-4 border-none rounded-md'>Login</button>
